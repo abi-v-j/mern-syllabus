@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function NotFound() {
   return (
     <main className="shell py-16">
-      <section className="mx-auto max-w-3xl rounded-[40px] border border-[var(--border)] bg-[var(--surface-strong)] p-8 text-center shadow-float md:p-12">
+      <section className="mx-auto max-w-3xl rounded-lg border border-[var(--border)] bg-[var(--surface-strong)] p-8 text-center shadow-float md:p-12">
         <p className="eyebrow">404</p>
         <h1 className="headline mt-5 text-4xl font-bold">This lesson path does not exist</h1>
         <p className="mt-4 text-sm leading-8 text-[var(--text-soft)]">

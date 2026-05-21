@@ -10,6 +10,9 @@ describe('courses data', () => {
         expect(topic.realLifeExample?.title).toBe('Real-life example');
         expect(topic.realLifeExample?.scenario).toBeTruthy();
         expect(topic.realLifeExample?.takeaway).toBeTruthy();
+        expect(topic.coachPlan?.path).toHaveLength(4);
+        expect(topic.coachPlan?.proTip).toContain(topic.topicTitle);
+        expect(topic.coachPlan?.checkpoints).toHaveLength(3);
       });
     });
   });

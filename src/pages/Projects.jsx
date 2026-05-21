@@ -21,25 +21,31 @@ function Projects() {
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
             <p className="eyebrow">Projects</p>
-            <h1 className="headline mt-4 text-4xl font-bold">Project ideas that turn topics into portfolio work</h1>
+            <h1 className="headline mt-4 text-4xl font-bold">
+              Project ideas that turn lessons into portfolio proof
+            </h1>
             <p className="mt-4 max-w-2xl text-sm leading-8 text-[var(--text-soft)]">
-              Start small, connect concepts across the stack, then grow into more advanced builds
-              with auth, realtime features, payments, and maintainable architecture.
+              Start with focused CRUD projects, then grow into search, auth, realtime, caching,
+              queues, admin workflows, and even RAG-style chatbot builds.
             </p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-3">
-            <div className="surface-soft rounded-[28px] p-5">
+            <div className="surface-soft p-5">
               <Rocket size={18} className="text-emerald-500" />
               <p className="mt-3 text-sm text-[var(--text-soft)]">Begin with</p>
-              <p className="mt-2 font-display text-3xl font-bold text-[var(--text-main)]">CRUD</p>
+              <p className="mt-2 font-display text-3xl font-bold text-[var(--text-main)]">
+                Core CRUD
+              </p>
             </div>
-            <div className="surface-soft rounded-[28px] p-5">
+            <div className="surface-soft p-5">
               <Layers3 size={18} className="text-sky-500" />
               <p className="mt-3 text-sm text-[var(--text-soft)]">Then add</p>
-              <p className="mt-2 font-display text-3xl font-bold text-[var(--text-main)]">Auth</p>
+              <p className="mt-2 font-display text-3xl font-bold text-[var(--text-main)]">
+                Integrations
+              </p>
             </div>
-            <div className="surface-soft rounded-[28px] p-5">
+            <div className="surface-soft p-5">
               <Wrench size={18} className="text-amber-500" />
               <p className="mt-3 text-sm text-[var(--text-soft)]">Finish with</p>
               <p className="mt-2 font-display text-3xl font-bold text-[var(--text-main)]">Scale</p>
@@ -48,11 +54,23 @@ function Projects() {
         </div>
       </section>
 
+      <section className="mt-8 flex flex-wrap gap-3">
+        <Link to="/tutorials" className="btn-primary">
+          Match projects to lessons
+          <ArrowRight size={16} />
+        </Link>
+        <Link to="/assistant?q=Give me a beginner MERN project roadmap." className="btn-secondary">
+          Ask AI guide for project path
+        </Link>
+      </section>
+
       <section className="mt-8 grid gap-5 xl:grid-cols-2">
         {projectCards.map((project) => (
           <article key={project.title} className="section-card">
             <div className="flex items-center justify-between gap-3">
-              <span className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] ${levelClass(project.level)}`}>
+              <span
+                className={`rounded-md px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] ${levelClass(project.level)}`}
+              >
                 {project.level}
               </span>
               <Link to="/tutorials" className="btn-ghost">
@@ -68,7 +86,7 @@ function Projects() {
 
             <div className="mt-5 grid gap-3">
               {project.outcomes.map((outcome) => (
-                <div key={outcome} className="surface-soft rounded-[24px] p-4 text-sm text-[var(--text-soft)]">
+                <div key={outcome} className="surface-soft p-4 text-sm text-[var(--text-soft)]">
                   {outcome}
                 </div>
               ))}

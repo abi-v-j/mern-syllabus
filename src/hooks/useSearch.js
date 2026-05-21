@@ -1,37 +1,11 @@
-export function useSearch(courses, query) {
-  const normalizedQuery = query.trim().toLowerCase();
+import { useMemo } from 'react';
+import { searchCourseContent } from '../utils/searchEngine.js';
 
-  if (!normalizedQuery) {
-    return [];
-  }
+export function useSearch(courses, query, options = {}) {
+  const { limit = 12, type = 'all' } = options;
 
-  const matches = [];
-
-  courses.forEach((course) => {
-    const courseText = `${course.courseTitle} ${course.courseDescription}`.toLowerCase();
-
-    if (courseText.includes(normalizedQuery)) {
-      matches.push({
-        type: 'course',
-        courseId: course.courseId,
-        title: course.courseTitle,
-        subtitle: `${course.topics.length} topics`,
-      });
-    }
-
-    course.topics.forEach((topic) => {
-      const topicText = `${topic.topicTitle} ${topic.explanation}`.toLowerCase();
-      if (topicText.includes(normalizedQuery)) {
-        matches.push({
-          type: 'topic',
-          courseId: course.courseId,
-          topicId: topic.topicId,
-          title: topic.topicTitle,
-          subtitle: course.courseTitle,
-        });
-      }
-    });
-  });
-
-  return matches.slice(0, 12);
+  return useMemo(
+    () => searchCourseContent(courses, query, { limit, type }),
+    [courses, limit, query, type],
+  );
 }

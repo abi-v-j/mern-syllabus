@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Check, Copy, RotateCcw, PlayCircle } from 'lucide-react';
 
 function buildPreviewDocument(html, css, js) {
@@ -23,8 +23,17 @@ function TryItEditor({ example }) {
   const [copied, setCopied] = useState(false);
   const [files, setFiles] = useState(() => example.files ?? {});
   const [code, setCode] = useState(example.code);
+  const timeoutRef = useRef(null);
 
   const previewDocument = buildPreviewDocument(files.html ?? '', files.css ?? '', files.js ?? '');
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        window.clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleCopy = async () => {
     const source =
@@ -34,7 +43,10 @@ function TryItEditor({ example }) {
 
     await navigator.clipboard.writeText(source);
     setCopied(true);
-    window.setTimeout(() => setCopied(false), 1500);
+    if (timeoutRef.current) {
+      window.clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = window.setTimeout(() => setCopied(false), 1500);
   };
 
   const resetEditor = () => {
@@ -77,13 +89,13 @@ function TryItEditor({ example }) {
                       [fileType]: event.target.value,
                     }))
                   }
-                  className="min-h-[160px] rounded-3xl border border-[var(--border)] bg-slate-950 p-4 font-mono text-sm leading-6 text-slate-100"
+                  className="min-h-[160px] rounded-lg border border-[var(--border)] bg-slate-950 p-4 font-mono text-sm leading-6 text-slate-100"
                 />
               </label>
             ))}
           </div>
 
-          <div className="overflow-hidden rounded-[28px] border border-[var(--border)] bg-white">
+          <div className="overflow-hidden rounded-lg border border-[var(--border)] bg-white">
             <div className="flex items-center gap-2 border-b border-[var(--border)] px-4 py-3 text-sm font-semibold text-slate-900">
               <PlayCircle size={16} className="text-emerald-600" />
               Live Preview
@@ -125,13 +137,14 @@ function TryItEditor({ example }) {
         <textarea
           value={code}
           onChange={(event) => setCode(event.target.value)}
-          className="min-h-[360px] rounded-[28px] border border-[var(--border)] bg-slate-950 p-5 font-mono text-sm leading-7 text-slate-100"
+          className="min-h-[360px] rounded-lg border border-[var(--border)] bg-slate-950 p-5 font-mono text-sm leading-7 text-slate-100"
         />
-        <div className="surface-soft rounded-[28px] p-5">
+        <div className="surface-soft p-5">
           <p className="pill w-fit">Expected output</p>
           <p className="mt-4 text-sm leading-7 text-[var(--text-soft)]">{example.output}</p>
-          <div className="mt-6 rounded-[24px] border border-dashed border-emerald-500/30 bg-emerald-500/5 p-4 text-sm text-[var(--text-soft)]">
-            Use this editor to rewrite the snippet, rename variables, add comments, or convert the example into your own mini exercise.
+          <div className="mt-6 rounded-lg border border-dashed border-[var(--border)] bg-[var(--brand-soft)] p-4 text-sm text-[var(--text-soft)]">
+            Use this editor to rewrite the snippet, rename variables, add comments, or convert the
+            example into your own mini exercise.
           </div>
         </div>
       </div>

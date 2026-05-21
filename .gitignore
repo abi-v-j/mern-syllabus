@@ -8,8 +8,12 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+coverage
 dist
 dist-ssr
+playwright-report
+test-results
+lighthouse-report.json
 *.local
 
 # Editor directories and files

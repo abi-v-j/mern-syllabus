@@ -17,6 +17,11 @@ export function flattenTopics(courses) {
       courseId: course.courseId,
       courseTitle: course.courseTitle,
       courseLabel: course.label,
+      courseLevel: course.level,
+      stageId: course.stageId,
+      stageTitle: course.stageTitle,
+      courseDescription: course.courseDescription,
+      courseSearchTerms: course.searchTerms ?? [],
       topicIndex: index,
       totalTopics: course.topics.length,
     })),
@@ -37,12 +42,12 @@ export function getTopicNavigation(course, topicId) {
   return {
     currentIndex,
     previousTopic: currentIndex > 0 ? course.topics[currentIndex - 1] : null,
-    nextTopic:
-      currentIndex < course.topics.length - 1 ? course.topics[currentIndex + 1] : null,
+    nextTopic: currentIndex < course.topics.length - 1 ? course.topics[currentIndex + 1] : null,
   };
 }
 
 export function countCompletedTopics(course, completedTopics) {
-  return course.topics.filter((topic) => completedTopics[buildTopicKey(course.courseId, topic.topicId)])
-    .length;
+  return course.topics.filter(
+    (topic) => completedTopics[buildTopicKey(course.courseId, topic.topicId)],
+  ).length;
 }

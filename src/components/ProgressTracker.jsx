@@ -18,9 +18,15 @@ function ProgressTracker({ course, topic, topicIndex = 0 }) {
       <h3 className="mt-4 font-display text-2xl font-bold text-[var(--text-main)]">
         {course?.courseTitle ?? 'Progress overview'}
       </h3>
+      {course && (
+        <div className="mt-3 flex flex-wrap gap-2">
+          <span className="pill">{course.stageBadge}</span>
+          <span className="pill">{course.level}</span>
+        </div>
+      )}
 
       <div className="mt-6 space-y-4">
-        <div className="surface-soft rounded-[24px] p-4">
+        <div className="surface-soft p-4">
           <div className="flex items-center justify-between text-sm font-medium text-[var(--text-soft)]">
             <span>Completion</span>
             <span>{progress}%</span>
@@ -34,23 +40,29 @@ function ProgressTracker({ course, topic, topicIndex = 0 }) {
         </div>
 
         <div className="grid gap-3">
-          <div className="surface-soft flex items-center gap-3 rounded-[24px] p-4">
+          <div className="surface-soft flex items-center gap-3 p-4">
             <CheckCircle2 size={18} className="text-emerald-500" />
             <div>
-              <p className="text-sm font-semibold text-[var(--text-main)]">{completedCount} completed</p>
-              <p className="text-xs text-[var(--text-soft)]">Out of {course?.topics.length ?? 0} total topics</p>
+              <p className="text-sm font-semibold text-[var(--text-main)]">
+                {completedCount} completed
+              </p>
+              <p className="text-xs text-[var(--text-soft)]">
+                Out of {course?.topics.length ?? 0} total topics
+              </p>
             </div>
           </div>
 
-          <div className="surface-soft flex items-center gap-3 rounded-[24px] p-4">
+          <div className="surface-soft flex items-center gap-3 p-4">
             <Bookmark size={18} className="text-amber-500" />
             <div>
-              <p className="text-sm font-semibold text-[var(--text-main)]">{bookmarkCountForCourse} saved</p>
+              <p className="text-sm font-semibold text-[var(--text-main)]">
+                {bookmarkCountForCourse} saved
+              </p>
               <p className="text-xs text-[var(--text-soft)]">Bookmarked topics in this course</p>
             </div>
           </div>
 
-          <div className="surface-soft flex items-center gap-3 rounded-[24px] p-4">
+          <div className="surface-soft flex items-center gap-3 p-4">
             <Layers3 size={18} className="text-sky-500" />
             <div>
               <p className="text-sm font-semibold text-[var(--text-main)]">
@@ -63,7 +75,7 @@ function ProgressTracker({ course, topic, topicIndex = 0 }) {
           </div>
 
           {topic && (
-            <div className="surface-soft flex items-center gap-3 rounded-[24px] p-4">
+            <div className="surface-soft flex items-center gap-3 p-4">
               <Clock3 size={18} className="text-rose-500" />
               <div>
                 <p className="text-sm font-semibold text-[var(--text-main)]">

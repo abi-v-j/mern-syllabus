@@ -12,13 +12,13 @@ export default {
         ocean: '#0284c7',
       },
       fontFamily: {
-        body: ['Manrope', 'sans-serif'],
-        display: ['Space Grotesk', 'sans-serif'],
+        body: ['Instrument Sans', 'sans-serif'],
+        display: ['Sora', 'sans-serif'],
       },
       boxShadow: {
-        float: '0 24px 80px -36px rgba(15, 23, 42, 0.45)',
+        float: '0 18px 48px -34px rgba(20, 24, 31, 0.45)',
       },
     },
   },
   plugins: [],
-}
+};

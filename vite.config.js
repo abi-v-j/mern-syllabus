@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -7,5 +7,12 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: './src/test/setup.js',
+    exclude: ['e2e/**', 'node_modules/**', 'dist/**'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html'],
+      include: ['src/**/*.{js,jsx}'],
+      exclude: ['src/test/**', 'src/assets/**'],
+    },
   },
-})
+});

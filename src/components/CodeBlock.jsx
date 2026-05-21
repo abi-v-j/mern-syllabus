@@ -1,13 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Check, Copy } from 'lucide-react';
 
 function CodeBlock({ example }) {
   const [copied, setCopied] = useState(false);
+  const timeoutRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        window.clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(example.code);
     setCopied(true);
-    window.setTimeout(() => setCopied(false), 1600);
+    if (timeoutRef.current) {
+      window.clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = window.setTimeout(() => setCopied(false), 1600);
   };
 
   return (

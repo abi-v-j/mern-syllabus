@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, BookOpen, CheckCircle2, Clock3 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { usePortal } from '../context/PortalContext.jsx';
 import { countCompletedTopics } from '../utils/navigation.js';
@@ -8,25 +8,27 @@ function TopicCard({ course }) {
   const completedCount = countCompletedTopics(course, completedTopics);
 
   return (
-    <article className="section-card relative overflow-hidden">
-      <div className={`absolute inset-0 bg-gradient-to-br ${course.accent}`} aria-hidden="true" />
-      <div className="relative">
-        <div className="flex items-center justify-between gap-4">
+    <article className="section-card group overflow-hidden">
+      <div className="flex h-full flex-col">
+        <div className="flex items-start justify-between gap-4">
           <span className="eyebrow">{course.label}</span>
-          <span className="rounded-2xl border border-white/50 bg-white/70 px-3 py-2 font-display text-xs font-bold tracking-[0.2em] text-slate-700 dark:border-white/10 dark:bg-slate-950/50 dark:text-slate-100">
+          <span className="rounded-md border border-[var(--border)] bg-[var(--surface-alt)] px-3 py-2 text-xs font-extrabold tracking-[0.16em] text-[var(--brand-strong)]">
             {course.icon}
           </span>
         </div>
 
-        <h3 className="mt-5 font-display text-2xl font-bold text-[var(--text-main)]">
+        <h3 className="mt-5 text-2xl font-extrabold tracking-tight text-[var(--text-main)]">
           {course.courseTitle}
         </h3>
         <p className="mt-3 text-sm leading-7 text-[var(--text-soft)]">{course.courseDescription}</p>
 
-        <div className="mt-5 flex flex-wrap gap-2">
+        <div className="mt-5 flex flex-wrap gap-2 border-y border-[var(--border)] py-4">
           <span className="pill inline-flex items-center gap-2">
             <BookOpen size={14} />
             {course.topics.length} topics
+          </span>
+          <span className="pill inline-flex items-center gap-2">
+            <Clock3 size={14} />~{course.estimatedHours} hr path
           </span>
           <span className="pill inline-flex items-center gap-2">
             <CheckCircle2 size={14} />
@@ -34,18 +36,11 @@ function TopicCard({ course }) {
           </span>
         </div>
 
-        <div className="mt-6 space-y-2">
-          {course.topics.slice(0, 3).map((topic) => (
-            <div
-              key={topic.topicId}
-              className="rounded-2xl border border-[var(--border)] bg-white/70 px-4 py-3 text-sm text-[var(--text-soft)] dark:bg-slate-950/40"
-            >
-              {topic.topicTitle}
-            </div>
-          ))}
+        <div className="mt-5 rounded-lg border border-[var(--border)] bg-[var(--surface-alt)] p-4 text-sm leading-7 text-[var(--text-soft)]">
+          <strong className="text-[var(--text-main)]">Build focus:</strong> {course.buildProject}
         </div>
 
-        <Link to={`/tutorials/${course.courseId}`} className="btn-primary mt-6">
+        <Link to={`/tutorials/${course.courseId}`} className="btn-primary mt-6 w-fit">
           Open course
           <ArrowRight size={16} />
         </Link>
